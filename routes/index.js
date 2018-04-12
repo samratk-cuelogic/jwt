@@ -2,11 +2,12 @@ var express = require('express');
 var app = express();
 var apiRoutes = express.Router();
 
+
 var UserHome = require('../models/user');
 var userCntrl = require('../controllers/user-controller');
 
 var jwt = require('jsonwebtoken');
-
+var Boom = require('boom');
 var config = require('../config');
 app.set('superSecret', config.secret);
 
@@ -25,7 +26,8 @@ apiRoutes.use(function(req, res, next) {
         // verifies secret and checks exp
         jwt.verify(token, app.get('superSecret'), function(err, decoded) {
             if (err) {
-                return res.json({ status: 401, success: false, message: 'Failed to authenticate token.' });
+               return res.json(Boom.unauthorized('Failed to authenticate token.'));
+               // return res.json({ status: 401, success: false, message: 'Failed to authenticate token.' });
             } else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
@@ -36,16 +38,17 @@ apiRoutes.use(function(req, res, next) {
     } else {
         console.log('No token provided.');
         // if there is no token
-        // return an error
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided.'
-        }); 
+        // return an error 
+        return res.send(Boom.forbidden('No token provided.'));
+        // return res.status(403).send({
+        //     success: false,
+        //     message: 'No token provided.'
+        // }); 
     }
 });
 
 
-apiRoutes.get('/', userCntrl.listjson);
+apiRoutes.get('/', userCntrl.index);
 
 apiRoutes.get('/users', userCntrl.listjson);
   

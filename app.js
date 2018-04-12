@@ -4,6 +4,7 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose'); 
+var Boom    = require('boom'); 
 var config = require('./config'); // get our config file 
 var apiRoutes = require('./routes/index');
 // =======================
@@ -18,11 +19,8 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev')); 
  
-// API ROUTES -------------------
-
-// get an instance of the router for api routes 
-
-
+// API ROUTES ------------------- 
+// get an instance of the router for api routes    
 // apply the routes to our application with the prefix /api
 app.use('/api', apiRoutes);
 
@@ -35,23 +33,4 @@ app.listen(port);
 console.log('Server at http://localhost:' + port);
 
 
-
-
-  
-// app.get('/setup', function(req, res) {
-
-//   // create a sample user
-//   var setUser = new User({ 
-//     name: 'samrat', 
-//     password: 'password',
-//     admin: true 
-//   });
-
-//   // save the sample user
-//   setUser.save(function(err) {
-//     if (err) throw err;
-
-//     console.log('User saved successfully');
-//     res.json({ success: true });
-//   });
-// });
+ 
