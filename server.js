@@ -24,29 +24,7 @@ app.use(bodyParser.json());
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));
-
-
-// basic route
-// app.get('/setup', function(req, res) {
-
-//   // create a sample user
-//   var setUser = new User({ 
-//     name: 'samrat', 
-//     password: 'password',
-//     admin: true 
-//   });
-
-//   // save the sample user
-//   setUser.save(function(err) {
-//     if (err) throw err;
-
-//     console.log('User saved successfully');
-//     res.json({ success: true });
-//   });
-// });
-
-
-
+ 
  
 // routes ================
 
@@ -133,6 +111,26 @@ apiRoutes.get('/users', function(req, res) {
     res.json(users);
   });
 });   
+
+
+// basic route
+// app.get('/setup', function(req, res) {
+
+//   // create a sample user
+//   var setUser = new User({ 
+//     name: 'samrat', 
+//     password: 'password',
+//     admin: true 
+//   });
+
+//   // save the sample user
+//   setUser.save(function(err) {
+//     if (err) throw err;
+
+//     console.log('User saved successfully');
+//     res.json({ success: true });
+//   });
+// });
 
 // apply the routes to our application with the prefix /api
 app.use('/api', apiRoutes);
